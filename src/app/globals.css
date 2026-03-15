@@ -1,0 +1,341 @@
+@import "tailwindcss";
+
+/* ============================================
+   LAIN AESTHETIC - CRT / CYBERPUNK / GLITCH
+   ============================================ */
+
+:root {
+  --color-bg: #000000;
+  --color-crt-green: #00FF41;
+  --color-crt-green-dim: #39FF14;
+  --color-ghost-white: #F8F8FF;
+  --color-blood-red: #8B0000;
+  --color-crimson: #DC143C;
+  --font-mono: 'VT323', 'Share Tech Mono', 'Fira Code', 'Courier New', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg);
+  color: var(--color-crt-green);
+  font-family: var(--font-mono);
+  overflow-x: hidden;
+}
+
+/* ============================================
+   CRT EFFECTS - GLOBAL OVERLAY
+   ============================================ */
+
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Scanlines */
+.crt-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  animation: scanline-flicker 0.1s infinite;
+}
+
+/* Vignette */
+.crt-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.4) 80%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+}
+
+/* CRT Flicker Animation */
+@keyframes scanline-flicker {
+  0% { opacity: 0.9; }
+  50% { opacity: 1; }
+  100% { opacity: 0.9; }
+}
+
+@keyframes crt-flicker {
+  0% { opacity: 0.97; }
+  5% { opacity: 0.95; }
+  10% { opacity: 0.98; }
+  15% { opacity: 0.94; }
+  20% { opacity: 0.97; }
+  50% { opacity: 0.96; }
+  80% { opacity: 0.98; }
+  100% { opacity: 0.97; }
+}
+
+.crt-flicker {
+  animation: crt-flicker 0.15s infinite;
+}
+
+/* ============================================
+   TEXT GLOW & PHOSPHOR EFFECT
+   ============================================ */
+
+.text-glow {
+  text-shadow: 
+    0 0 5px var(--color-crt-green),
+    0 0 10px var(--color-crt-green),
+    0 0 20px var(--color-crt-green-dim);
+}
+
+.text-glow-red {
+  text-shadow: 
+    0 0 5px var(--color-blood-red),
+    0 0 10px var(--color-crimson);
+}
+
+/* ============================================
+   GLITCH EFFECTS
+   ============================================ */
+
+@keyframes glitch-1 {
+  0% { clip-path: inset(40% 0 61% 0); transform: translate(-2px, 2px); }
+  20% { clip-path: inset(92% 0 1% 0); transform: translate(2px, -2px); }
+  40% { clip-path: inset(43% 0 1% 0); transform: translate(-2px, 2px); }
+  60% { clip-path: inset(25% 0 58% 0); transform: translate(2px, -2px); }
+  80% { clip-path: inset(54% 0 7% 0); transform: translate(-2px, 2px); }
+  100% { clip-path: inset(58% 0 43% 0); transform: translate(2px, -2px); }
+}
+
+@keyframes glitch-2 {
+  0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -2px); }
+  20% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 2px); }
+  40% { clip-path: inset(30% 0 20% 0); transform: translate(2px, -2px); }
+  60% { clip-path: inset(15% 0 80% 0); transform: translate(-2px, 2px); }
+  80% { clip-path: inset(55% 0 10% 0); transform: translate(2px, -2px); }
+  100% { clip-path: inset(40% 0 30% 0); transform: translate(-2px, 2px); }
+}
+
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-bg);
+}
+
+.glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 var(--color-crimson);
+  clip-path: inset(0 0 0 0);
+  animation: glitch-1 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  left: -2px;
+  text-shadow: 2px 0 var(--color-crt-green-dim);
+  clip-path: inset(0 0 0 0);
+  animation: glitch-2 3s infinite linear alternate-reverse;
+}
+
+/* ============================================
+   TERMINAL WINDOW STYLE
+   ============================================ */
+
+.terminal-window {
+  border: 2px solid var(--color-crt-green);
+  background: rgba(0, 20, 0, 0.9);
+  box-shadow: 
+    0 0 10px var(--color-crt-green),
+    inset 0 0 20px rgba(0, 255, 65, 0.1);
+  position: relative;
+}
+
+.terminal-header {
+  background: var(--color-crt-green);
+  color: var(--color-bg);
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.terminal-content {
+  padding: 16px;
+}
+
+/* ============================================
+   BOOT SEQUENCE ANIMATIONS
+   ============================================ */
+
+@keyframes boot-scroll {
+  0% { transform: translateY(100%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-100%); opacity: 0; }
+}
+
+.boot-line {
+  animation: boot-scroll 0.3s linear forwards;
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor {
+  display: inline-block;
+  width: 10px;
+  height: 18px;
+  background: var(--color-crt-green);
+  animation: cursor-blink 0.8s infinite;
+  vertical-align: middle;
+}
+
+/* ============================================
+   NOISE / STATIC EFFECT
+   ============================================ */
+
+@keyframes noise {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  10% { transform: translate(-5%, -5%) rotate(-1deg); }
+  20% { transform: translate(5%, 5%) rotate(1deg); }
+  30% { transform: translate(-5%, 5%) rotate(1deg); }
+  40% { transform: translate(5%, -5%) rotate(-1deg); }
+  50% { transform: translate(-5%, -5%) rotate(0deg); }
+  60% { transform: translate(5%, 5%) rotate(-1deg); }
+  70% { transform: translate(-5%, 5%) rotate(1deg); }
+  80% { transform: translate(5%, -5%) rotate(1deg); }
+  90% { transform: translate(-5%, -5%) rotate(0deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.03;
+  background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noise)"/%3E%3C/svg%3E');
+  animation: noise 0.5s steps(10) infinite;
+}
+
+/* ============================================
+   LINKS & BUTTONS
+   ============================================ */
+
+.lain-link {
+  color: var(--color-crt-green);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--color-crt-green);
+  transition: all 0.2s;
+}
+
+.lain-link:hover {
+  background: var(--color-crt-green);
+  color: var(--color-bg);
+  box-shadow: 0 0 15px var(--color-crt-green);
+}
+
+.lain-btn {
+  background: transparent;
+  border: 1px solid var(--color-crt-green);
+  color: var(--color-crt-green);
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.lain-btn:hover {
+  background: var(--color-crt-green);
+  color: var(--color-bg);
+  box-shadow: 0 0 20px var(--color-crt-green);
+}
+
+.lain-btn.active {
+  background: var(--color-crimson);
+  border-color: var(--color-crimson);
+  color: var(--color-ghost-white);
+  box-shadow: 0 0 20px var(--color-crimson);
+}
+
+/* ============================================
+   ASCII ART CONTAINER
+   ============================================ */
+
+.ascii-art {
+  font-family: 'Courier New', monospace;
+  font-size: 8px;
+  line-height: 8px;
+  white-space: pre;
+  overflow: hidden;
+  color: var(--color-ghost-white);
+  opacity: 0.8;
+}
+
+/* ============================================
+   PROJECT FILE ICONS
+   ============================================ */
+
+.file-icon {
+  font-size: 24px;
+  margin-right: 8px;
+  display: inline-block;
+}
+
+.file-icon.exe { color: var(--color-crimson); }
+.file-icon.sh { color: var(--color-crt-green); }
+.file-icon.hw { color: var(--color-ghost-white); }
+.file-icon.lua { color: #ffd700; }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .terminal-window {
+    margin: 8px;
+  }
+  
+  .ascii-art {
+    font-size: 4px;
+    line-height: 4px;
+  }
+}
