@@ -2,15 +2,16 @@ import type { Metadata } from "next";
 import { VT323 } from "next/font/google";
 import "./globals.css";
 
-const vt323 = VT323({ 
+const vt323 = VT323({
   weight: "400",
   subsets: ["latin"],
-  variable: "--font-mono"
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
-  title: "Ghabriel // DevOps & Software Developer",
-  description: "Portfolio - Serial Experiments Lain aesthetic",
+  title: "Ghabriel // Full-stack, Automação & Performance",
+  description:
+    "Portfólio de Ghabriel: desenvolvimento full-stack, automação, performance e infraestrutura.",
 };
 
 export default function RootLayout({
@@ -19,11 +20,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body className={vt323.variable}>
-        {/* CRT Effects Overlay */}
-        <div className="crt-overlay" />
-        <div className="noise-overlay" />
+        <div className="crt-overlay" aria-hidden="true" />
+        <div className="noise-overlay" aria-hidden="true" />
         {children}
       </body>
     </html>
